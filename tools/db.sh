@@ -5,13 +5,15 @@ declare -g -x _ROOT="$( cd "$(dirname "${BASH_SOURCE[0]}")" ; pwd -P )/"
 
 source $_DIR"../.env"
 
-
 function _init_db() {
 
 	psql postgres -c "CREATE USER $DB_USER WITH LOGIN SUPERUSER INHERIT CREATEDB CREATEROLE NOREPLICATION PASSWORD '$DB_PASS'"
 	psql postgres -c "CREATE DATABASE $DB_NAME WITH OWNER = $DB_USER ENCODING = 'UTF8' CONNECTION LIMIT = -1;"
 	psql $DB_NAME -f $_DIR"../schema/config.sql"
-	psql $DB_NAME -f $_DIR"../schema/users-table.sql"
+	psql $DB_NAME -f $_DIR"../schema/types/authenticated-user.sql"
+	psql $DB_NAME -f $_DIR"../schema/functions/hash.sql"
+	psql $DB_NAME -f $_DIR"../schema/functions/create-user.sql"
+	psql $DB_NAME -f $_DIR"../schema/functions/authenticate-user.sql"
 }
 
 function _reset_db() { echo "not yet implemented"; }

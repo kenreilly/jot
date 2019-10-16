@@ -1,4 +1,4 @@
-name: api
+name: jot_api
 description: A web server built using the shelf package.
 # version: 1.0.0
 # homepage: https://www.example.com
@@ -10,6 +10,8 @@ environment:
 dependencies:
   args: ^1.4.2
   shelf: ^0.7.2
+  dotenv: ^1.0.0
+  postgres: ^1.0.2
 
 dev_dependencies:
   pedantic: ^1.0.0
